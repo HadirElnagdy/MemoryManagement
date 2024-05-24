@@ -16,7 +16,6 @@ This repository contains a comprehensive guide and demo on memory management in 
 
 Memory management is a critical aspect of software development, ensuring efficient use of memory and preventing memory leaks and crashes. In iOS, memory management has evolved significantly over time.
 
-[Read more](#introduction-to-memory-management)
 
 ## Handling Memory in iOS Before ARC
 
