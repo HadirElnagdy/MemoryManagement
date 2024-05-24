@@ -24,5 +24,9 @@ var b: ObjectB? = ObjectB()
 a?.objectB = b
 b?.objectA = a
 
+print("Number of references on a: \(CFGetRetainCount(a))") // 3
+print("Number of references on b: \(CFGetRetainCount(b))") // 3
+
+
 a = nil
 b = nil
