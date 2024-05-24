@@ -96,56 +96,6 @@ Person *john = [[[Person alloc] init] autorelease];
 
 Automatic Reference Counting (ARC) was introduced to model the lifetime of objects and their relationships. ARC automatically manages the retain and release calls, reducing the risk of memory leaks and improving code maintainability.
 
-
-
-## Strong Reference Cycles
-
-One common issue with ARC is the potential for strong reference cycles, also known as retain cycles. This occurs when two or more objects hold strong references to each other, preventing them from being deallocated even when they are no longer needed. To avoid retain cycles, you can use weak or unowned references.
-
-## Weak and Unowned References
-
-### Weak References: 
-A weak reference doesn't keep a strong hold on the referenced object. If the referenced object is deallocated, the weak reference automatically becomes nil.
-### Unowned References: 
-An unowned reference is similar to a weak reference but assumes that the referenced object will never be nil during its lifetime. If you try to access an unowned reference after the referenced object has been deallocated, it will result in a runtime error.
-
-
-## Managing Closures
-
-Closures capture references to variables and constants from the surrounding context. If a closure captures a strong reference to an object and that object holds a strong reference to the closure, it can create a retain cycle. To prevent this, use capture lists with weak or unowned references when necessary.
-
-
-
----
-
-### Detailed Sections
-
-#### Introduction to Memory Management
-
-Memory management involves allocating and deallocating memory resources to ensure efficient use of memory. Proper memory management prevents issues such as memory leaks and crashes, which can degrade the performance and reliability of an application.
-
-#### Handling Memory in iOS Before ARC
-
-Before ARC, developers used Manual Retain-Release (MRR) for memory management. This required explicit calls to `retain`, `release`, and `autorelease` to manage the lifecycle of objects.
-
-```objc
-// Create an object
-Person *john = [[Person alloc] init];
-
-// Retain the object (increase retain count)
-[john retain];
-
-// Use the object
-[john doSomething];
-
-// Release the object (decrease retain count)
-[john release];
-```
-
-#### Automatic Reference Counting (ARC)
-
-ARC automates memory management by automatically inserting retain and release calls at compile time. This reduces the risk of memory leaks and simplifies the development process.
-
 ```swift
 class Person {
     var name: String
@@ -163,9 +113,9 @@ var john: Person? = Person(name: "John Doe")
 john = nil // ARC automatically manages the memory
 ```
 
-#### Strong Reference Cycles
+## Strong Reference Cycles
 
-Strong reference cycles occur when two objects hold strong references to each other, preventing deallocation.
+One common issue with ARC is the potential for strong reference cycles, also known as retain cycles. This occurs when two or more objects hold strong references to each other, preventing them from being deallocated even when they are no longer needed. To avoid retain cycles, you can use weak or unowned references.
 
 ```swift
 class Person {
@@ -200,9 +150,12 @@ unit = nil
 // Strong reference cycle prevents deallocation
 ```
 
-#### Weak and Unowned References
+## Weak and Unowned References
 
-Weak references do not increase the reference count and are set to nil when the object is deallocated. Unowned references do not increase the reference count but assume the object will always be in memory.
+### Weak References: 
+A weak reference doesn't keep a strong hold on the referenced object. If the referenced object is deallocated, the weak reference automatically becomes nil.
+### Unowned References: 
+An unowned reference is similar to a weak reference but assumes that the referenced object will never be nil during its lifetime. If you try to access an unowned reference after the referenced object has been deallocated, it will result in a runtime error.
 
 ```swift
 class Person {
@@ -237,9 +190,9 @@ unit = nil
 // No strong reference cycle; objects are deallocated
 ```
 
-#### Managing Closures
+## Managing Closures
 
-Closures capture references to variables and constants from their surrounding context. To avoid retain cycles, use capture lists with weak or unowned references.
+Closures capture references to variables and constants from the surrounding context. If a closure captures a strong reference to an object and that object holds a strong reference to the closure, it can create a retain cycle. To prevent this, use capture lists with weak or unowned references when necessary.
 
 ```swift
 class ViewController {
@@ -260,4 +213,14 @@ vc?.printName()
 vc = nil
 // No retain cycle; ViewController is deallocated
 ```
+
+
+
+
+
+
+
+
+
+
 
