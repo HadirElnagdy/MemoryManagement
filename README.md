@@ -154,8 +154,6 @@ unit = nil
 
 ### Weak References: 
 A weak reference doesn't keep a strong hold on the referenced object. If the referenced object is deallocated, the weak reference automatically becomes nil.
-### Unowned References: 
-An unowned reference is similar to a weak reference but assumes that the referenced object will never be nil during its lifetime. If you try to access an unowned reference after the referenced object has been deallocated, it will result in a runtime error.
 
 ```swift
 class Person {
@@ -188,6 +186,38 @@ unit?.tenant = john
 john = nil
 unit = nil
 // No strong reference cycle; objects are deallocated
+```
+
+### Unowned References: 
+An unowned reference is similar to a weak reference but assumes that the referenced object will never be nil during its lifetime. If you try to access an unowned reference after the referenced object has been deallocated, it will result in a runtime error.
+
+```swift
+//Use an unowned reference only when you are sure that the reference always refers to an instance that hasn’t been deallocated.
+
+class Customer {
+    let name: String
+    var card: CreditCard?
+    init(name: String) {
+        self.name = name
+    }
+    deinit { print("\(name) is being deinitialized") }
+}
+
+//there's no card without a customer
+class CreditCard {
+    let number: UInt64
+    unowned let customer: Customer //because the customer will outlive the card and the card will always have a customer
+    init(number: UInt64, customer: Customer) {
+        self.number = number
+        self.customer = customer
+    }
+    deinit { print("Card #\(number) is being deinitialized") }
+}
+
+var hadir: Customer?
+hadir = Customer(name: "Hadir Elnagdy")
+hadir!.card = CreditCard(number: 1234_5678_9012_3456, customer: hadir!)
+hadir = nil
 ```
 
 ## Managing Closures
