@@ -10,6 +10,7 @@ This repository contains a comprehensive guide and demo on memory management in 
 4. [Strong Reference Cycles](#strong-reference-cycles)
 5. [Weak and Unowned References](#weak-and-unowned-references)
 6. [Managing Closures](#managing-closures)
+7. [Conclusion](#conclusion)
 
 ## Introduction to Memory Management
 
@@ -245,7 +246,9 @@ vc = nil
 ```
 
 
+## Conclusion
 
+Automatic Reference Counting (ARC) has significantly simplified memory management in iOS, allowing developers to focus more on building features rather than managing memory manually. ARC automatically tracks and manages the reference counts of strong references to objects. It's important to note that ARC only counts strong references and does not manage value types such as structs and enums, which are automatically managed by Swift. By understanding and utilizing ARC, along with weak and unowned references to prevent strong reference cycles, developers can write efficient and memory-safe iOS applications.
 
 
 
